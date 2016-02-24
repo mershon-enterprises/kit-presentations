@@ -13,3 +13,10 @@
 figwheel_server.log
 pom.xml
 pom.xml.asc
+
+# vim
+*.swp
+*.swo
+
+#ctags
+.tags

@@ -2,6 +2,7 @@
   (:require [om.core :as om :include-macros true]
             [om-tools.core :refer-macros [defcomponent]]
             [om-tools.dom :as d :include-macros true]
+            [om-bootstrap.button :as b]
             [matchbox.core :as m]))
 
 (enable-console-print!)
@@ -17,6 +18,17 @@
     (let [mapped (apply array-map data)]
       ; update the slide index
       (swap! app-state assoc-in [:slides :current-index] (get mapped "current-index")))))
+
+(defcomponent next-button
+  [data :- {} owner]
+  (render
+    [_]
+    (when true
+      (b/button {:bs-style "info"
+                 :on-click (fn []
+                             (let [current-index (get-in @app-state [:slides :current-index])]
+                               (m/reset-in! root [:slides :current-index] (inc current-index))))}
+                "Next"))))
 
 (defcomponent slide-1
   [data :- {} owner]
@@ -72,6 +84,7 @@
       (om/build slide-1 (:slides data))
       (om/build slide-2 (:slides data))
       (om/build slide-3 (:slides data))
+      (om/build next-button nil)
       )))
 
 (om/root

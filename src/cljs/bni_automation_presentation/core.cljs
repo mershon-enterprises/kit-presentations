@@ -218,6 +218,84 @@
                   (d/li "you're forthright and good about communicating feedback to your software vendor")
                   (d/li "you're willing to experiment with your solution to tailor it to your needs while it is still being developed"))))))))
 
+(defcomponent slide-11
+  [data :- {} owner]
+  (render
+    [_]
+    (when (= 11 (:current-index data))
+      (d/div
+        (d/h1 {:class "left"} "Scenario 1: No Automation")
+        (d/ul
+          (d/li "2 clerical staff at $11/hr")
+          (d/li "Costs me ~$46k/year, no benefits, no expenses to keep my location")
+          (d/li "Optimistic: workload for this business unit to grow 20% year-over-year, for the next 10")
+          (d/li "As demand grows, I have to hire to compensate for their workload.")
+          (d/li "Assuming I never give raises, minimum wage never goes up, taxes don't get raised, and I can hire everyone new at the exact same rate, I have to hire in years 4, 5, 7, two in year 8, year 9, and two more in year 10")
+          (d/li "Total out of pocket is in the neighborhood of $1.08M")
+          (d/li "This assumes no office expansion, no new furniture to seat them, no manager to run this burgeoning team...")
+          (d/li "This is pretty much " (d/b "best") " case scenario."))))))
+
+(defcomponent slide-12
+  [data :- {} owner]
+  (render
+    [_]
+    (when (= 12 (:current-index data))
+      (d/div
+        (d/h1 {:class "left"} "Scenario 2: " (d/i "Yes") " Automation")
+        (d/ul
+          (d/li "2 clerical staff at $11/hr")
+          (d/li "Costs me ~$46k/year, no benefits, no expenses to keep my location")
+          (d/li "Optimistic: workload for this business unit to grow 20% year-over-year, for the next 10")
+          (d/li "In year 1, I run a project to automate my business unit for $46k, and never have to hire again.")
+          (d/li "I decide to keep my team, and assign them to quality control and customer service, and give them 2% raise each year")
+          (d/li "But...I go " (d/b "100% over budget") ". Whoops.")
+          (d/li "And, I'm going to " (d/b "rewrite the whole system, every other year") " due to changes in legislation or internal dynamics of the company.")
+          (d/li "Total out of pocket, ~$776k")
+          (d/li "This is pretty much " (d/b "worst") " case scenario."))))))
+
+(defcomponent slide-13
+  [data :- {} owner]
+  (render
+    [_]
+    (when (= 13 (:current-index data))
+      (d/div
+        (d/h1 {:class "left"} "Too good to be true?")
+        (d/ul
+          (d/li "You cannot look outside or even around this room and claim the landscape of business hasn't change. The rules today are different.")
+          (d/li "As Internet pioneer Marc Andreessen said in 2011, " (d/i "Software is eating the world.") " (His net worth is upwards of $600M invested in tech. He knows a thing or two.")
+          (d/li "Last year, every quarter, Apple was ranked #1 in global market value, with Google and Microsoft neck-and-neck behind them. Facebook was in the top 10 in the last quarter.")
+          (d/li "You cannot be complacent. You cannot settle with what you have. You cannot fear change. Your competition is not, will not, and does not.")
+          (d/li "Sooner or later, they will learn their " (d/i "ne waza") ", they will practice their " (d/i "happo no kuzushi ") (d/u (d/b "on you")) ", and they will mop the floor with you and leave you unemployed and "(d/u (d/b "unemployable"))"."))))))
+
+(defcomponent slide-14
+  [data :- {} owner]
+  (render
+    [_]
+    (when (= 14 (:current-index data))
+      (d/div
+        (d/h1 {:class "left"} "I'm here to help")
+        (d/ul
+          (d/li "This is where I can help. This is what I've been doing for 13 years. I design and implement business solutions to save your bottom line.")
+          (d/li "I can make anything talk to anything. I can make computers work for people who insist they can't use computers. I can make software talk to software. I can make your cell phone talk to your refridgerator.")
+          (d/li "Anything we can visualize, I can build, and I've got the team behind me to help me do it.")
+          (d/li "Best of all, I'm not 250 miles away in a colorful office getting free daily massages. I'm here, with you, today.")
+          (d/li "Ask yourself: What tools are you paying for, what could you do without, what sucks, what’s broken, what would be amazing if only for this or that, or what just cannot be done because the powers that be refuse to allow it?")
+          (d/li "Eventually, something's going to give, and you're going to need to simplify, and automate. When you're ready, give me a call."))))))
+
+(defcomponent slide-15
+  [data :- {} owner]
+  (render
+    [_]
+    (when (= 15 (:current-index data))
+      (d/div
+        (d/h1 {:class "left"} "Thank you for listening")
+        (d/h3 {:class "left"} "Kevin Mershon, Mershon Enterprises")
+        (d/h3 {:class "left"} "A Bakersfield software company, a name you know, a team you can count on.")
+        (d/h3 {:class "left"} "(661) 425-9099")
+        (d/h4 {:class "left"} "We are: 4 developers, 1 Alyssa, and a handful of consultants ready to get your project done")
+        (d/h4 {:class "left"} "Websites, mobile apps, databases, applications, system architecture, and systems integration.")
+        (d/h4 {:class "left"} "Industrial, agricultural, accounting, inventory, payroll, and HR.")
+        ))))
 
 (defcomponent root-component
   [data :- {} owner]
@@ -234,12 +312,22 @@
       (om/build slide-8  (:slides data))
       (om/build slide-9  (:slides data))
       (om/build slide-10 (:slides data))
-      (g/grid {}
-        (g/row {}
-               (g/col {:xs 4}
-                      (om/build prev-button nil))
-               (g/col {:xs-offset 4 :xs 4}
-                      (om/build next-button nil)))))))
+      (om/build slide-11 (:slides data))
+      (om/build slide-12 (:slides data))
+      (om/build slide-13 (:slides data))
+      (om/build slide-14 (:slides data))
+      (om/build slide-15 (:slides data))
+
+      (when
+        (not= -1 (.indexOf js/window.location.search "presentor"))
+        (g/grid {}
+                (g/row {}
+                       (g/col {:id "prev-button"
+                               :xs 4}
+                              (om/build prev-button nil))
+                       (g/col {:id "next-button"
+                               :xs-offset 4 :xs 4}
+                              (om/build next-button nil))))))))
 
 (om/root
  root-component

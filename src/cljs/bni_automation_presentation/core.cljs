@@ -3,6 +3,7 @@
             [om-tools.core :refer-macros [defcomponent]]
             [om-tools.dom :as d :include-macros true]
             [om-bootstrap.button :as b]
+            [om-bootstrap.grid :as g]
             [matchbox.core :as m]))
 
 (enable-console-print!)
@@ -19,6 +20,16 @@
       ; update the slide index
       (swap! app-state assoc-in [:slides :current-index] (get mapped "current-index")))))
 
+(defcomponent prev-button
+  [data :- {} owner]
+  (render
+    [_]
+    (when true
+      (b/button {:bs-style "info"
+                 :on-click (fn []
+                             (let [current-index (get-in @app-state [:slides :current-index])]
+                               (m/reset-in! root [:slides :current-index] (dec current-index))))}
+                "Prev"))))
 (defcomponent next-button
   [data :- {} owner]
   (render
@@ -119,7 +130,51 @@
         (d/ul
           (d/li "The inventor of Judo, Jigoro Kano as a kid was bullied and sought out Jujutsu to train, couldn’t find a teacher for quite some time, and discovered that it was kind of being pushed out of existence by westernization and the high competitiveness and occasional brutality of the sport.")
           (d/li "When he finally did find a teacher, a " (d/i "sensei") ", he found one who emphasized application of techniques over exercise (e.g. more real-world)")
-          (d/li "As an adult in 1882, as jujutsu continued to lose popularity nation-wide and the discipline was being lost, Kano decided to reject techniques which were inefficient or self-destructive (like a flying scissor kick), and focus on a simpler core so he created Judo, which means “the gentle way” (or more appropriately, the " (d/u (d/i "efficient")) " way)"))))))
+          (d/li "As an adult in 1882, as jujutsu continued to lose popularity nation-wide and the discipline was being lost, Kano decided to reject techniques which were inefficient or self-destructive (like a flying scissor kick), and focus on a simpler core so he created Judo, which means “the gentle way” (or more appropriately, the " (d/u (d/b "efficient")) " way)"))))))
+
+(defcomponent slide-7
+  [data :- {} owner]
+  (render
+    [_]
+    (when (= 7 (:current-index data))
+      (d/div
+        (d/h1 {:class "left"} "My off-balanced job")
+        (d/ul
+          (d/li "Anyone ever ask their spouse how their day was? It usually goes like this:"
+                (d/ul
+                  (d/li "we're busy")
+                  (d/li "everyone has different goals")
+                  (d/li "we're constantly focused on not going over on labor")
+                  (d/li "sometimes we're understaffed and overworked")
+                  (d/li "there are constant communication issues")
+                  (d/li "there is gossip, and internal politics")
+                  (d/li "all of this, while we're trying to please our choosy customers")))
+          (d/li "This is probably true about every business represented in this room")
+          (d/li "A great quote my sister once told me"
+                (d/ul
+                  (d/li (d/i "It's like kite-surfing. You're always falling to one side and then overcorrecting. The only thing you care about is not falling in.")))))))))
+
+(defcomponent slide-8
+  [data :- {} owner]
+  (render
+    [_]
+    (when (= 8 (:current-index data))
+      (d/div
+        (d/h1 {:class "left"} "Tenants of Judo we can apply to business")
+        (d/ul
+          (d/li "randori"
+                (d/ul
+                  (d/li "free practice")
+                  (d/li "All business processes have a human element to them that we must come to accept, and that means we must be pragmatic in our approach and responsive to its effects.")
+                  (d/li "Sun-Tzu said: " (d/i "\"Move swift as the Wind and closely-formed as the Wood. Attack like the Fire and be still as the Mountain.\""))
+                  (d/li "always test yourself with the tools and techniques you've learned. " (d/u (d/b "KNOW")) " how to use them")))
+          (d/li "happo no kuzushi (" (d/i "ne waza") "/standing technique)"
+                (d/ul
+                  (d/li "the 8 directions of off-balancing (the art of " (d/u (d/b "indirection")) ")"))
+                  (d/li "Sun-Tzu said: " (d/i "\"The greatest victory is that which requires no battle.\""))
+                  (d/li "Use the least amount of effort to exact the greatest effect.")))))))
+
+
 
 (defcomponent root-component
   [data :- {} owner]
@@ -132,8 +187,14 @@
       (om/build slide-4 (:slides data))
       (om/build slide-5 (:slides data))
       (om/build slide-6 (:slides data))
-      (om/build next-button nil)
-      )))
+      (om/build slide-7 (:slides data))
+      (om/build slide-8 (:slides data))
+      (g/grid {}
+        (g/row {}
+               (g/col {:xs 4}
+                      (om/build prev-button nil))
+               (g/col {:xs-offset 4 :xs 4}
+                      (om/build next-button nil)))))))
 
 (om/root
  root-component

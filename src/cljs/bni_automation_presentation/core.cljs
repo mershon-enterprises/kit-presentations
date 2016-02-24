@@ -174,6 +174,49 @@
                   (d/li "Sun-Tzu said: " (d/i "\"The greatest victory is that which requires no battle.\""))
                   (d/li "Use the least amount of effort to exact the greatest effect.")))))))
 
+(defcomponent slide-9
+  [data :- {} owner]
+  (render
+    [_]
+    (when (= 9 (:current-index data))
+      (d/div
+        (d/h1 {:class "left"} "What does efficiency in my business look like?")
+        (d/ul
+          (d/li (d/u (d/b "AUTOMATION")) " - computers are literally thousands of times faster than we are.")
+          (d/li "Some freebies!"
+                (d/ul
+                  (d/li "no time sheets"
+                        (d/ul
+                          (d/li "Find a way to get rid of the time sheet as a paradigm of your business.")
+                          (d/li "I'm not saying put everyone on salary, but there are tons of alternative solutions to get you away from printed/digital time sheets to run payroll.")
+                          (d/li "Clock-in/clock-out systems which track by project digitally and auto-compile your payroll is the way to go.")
+                          (d/li "The best options allow you to enter time as you go, and also allow you or management to bulk-enter time retroactively.")))
+                  (d/li "automate your expenses and mileage logs"
+                        (d/ul
+                          (d/li "most credit cards auto-categorize expenses.")
+                          (d/li "At minimum your banking ledger should be connected to your accounting or ERP software to pull in and reconcile transactions for monitoring.")
+                          (d/li "Mileage logs should be completely automated. There's no excuse not to, with smartphones with GPS everywhere.")
+                          ))
+                  (d/li "no duplication of data or data entry")))
+
+          (d/li "all of this data collected can be used to ask questions about your business and help you keep down your costs")
+          (d/li "It " (d/u (d/b "is possible")) " for you to know every single day how much your business costs to run."))))))
+
+(defcomponent slide-10
+  [data :- {} owner]
+  (render
+    [_]
+    (when (= 10 (:current-index data))
+      (d/div
+        (d/h1 {:class "left"} "The Cost Fallacy")
+        (d/ul
+          (d/li "First thing everyone thinks when they hear automation: " (d/i "How much is this going to cost?"))
+          (d/li "Generally speaking, the initial cost to automate some piece of your business will be about the same as the people who are currently doing the work already cost you. " (d/u (d/b "ONCE.")))
+          (d/li "Executed well, over a sufficiently long period of time, that can amount to 90% savings or better, with a few assumptions entirely within your control:"
+                (d/ul
+                  (d/li "whatever you're automating needs to be 100% logically consistent. Minimize the " (d/i "\"But sometimes...\"") " conditions.")
+                  (d/li "you're forthright and good about communicating feedback to your software vendor")
+                  (d/li "you're willing to experiment with your solution to tailor it to your needs while it is still being developed"))))))))
 
 
 (defcomponent root-component
@@ -181,14 +224,16 @@
   (render
     [_]
     (d/div
-      (om/build slide-1 (:slides data))
-      (om/build slide-2 (:slides data))
-      (om/build slide-3 (:slides data))
-      (om/build slide-4 (:slides data))
-      (om/build slide-5 (:slides data))
-      (om/build slide-6 (:slides data))
-      (om/build slide-7 (:slides data))
-      (om/build slide-8 (:slides data))
+      (om/build slide-1  (:slides data))
+      (om/build slide-2  (:slides data))
+      (om/build slide-3  (:slides data))
+      (om/build slide-4  (:slides data))
+      (om/build slide-5  (:slides data))
+      (om/build slide-6  (:slides data))
+      (om/build slide-7  (:slides data))
+      (om/build slide-8  (:slides data))
+      (om/build slide-9  (:slides data))
+      (om/build slide-10 (:slides data))
       (g/grid {}
         (g/row {}
                (g/col {:xs 4}

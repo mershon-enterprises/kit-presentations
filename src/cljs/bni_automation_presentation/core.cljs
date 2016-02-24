@@ -76,6 +76,51 @@
                 (d/ul (d/li "to " (d/i "best") " someone"))))
 
         (d/h3 "We usually don't mean the last one, but let's consider it...")))))
+
+(defcomponent slide-4
+  [data :- {} owner]
+  (render
+    [_]
+    (when (= 4 (:current-index data))
+      (d/div
+        (d/h1 {:class "left"} (d/i "Best") "ing, as a verb")
+        (d/ul
+          (d/li "Besting implies that you're in competition or combat with someone")
+          (d/li "We all have competitors, vendors, customers...")
+          (d/li "Lots of authors have made the comparison of business to war (nonexhaustive):"
+                (d/ul
+                  (d/li "Sun Tzu, the Art of War")
+                  (d/li "Machiavelli, The Prince")
+                  (d/li "Adam Smith, The Wealth of Nations")
+                  (d/li "Ayn Rand, Atlas Shrugged")))
+          (d/li "I'm also going to suggest"
+                (d/ul
+                  (d/li "Robert Greene, The 48 Laws of Power"))))))))
+
+(defcomponent slide-5
+  [data :- {} owner]
+  (render
+    [_]
+    (when (= 5 (:current-index data))
+      (d/div
+        (d/h1 {:class "left"} "The 48 Laws, in ~30 seconds")
+        (d/ul
+          (d/li "In Green's own words, the book is \"a distillation of accumulated wisdom gathered from writing of the most illustrious strategists, statesmen, courtiers, seducers, and con artists in history, spanning more than 3 thousand years across numerous civilizations\"")
+          (d/li "This book is, in a word, " (d/u (d/b "EVIL")))
+          (d/li "BUT, we can all learn something from it and so today I'm going to focus on the binding theme this book constantly circles back to, in order to teach you how to " (d/i "best") " others in the game of power: the art of " (d/u (d/b "indirection"))))))))
+
+(defcomponent slide-6
+  [data :- {} owner]
+  (render
+    [_]
+    (when (= 6 (:current-index data))
+      (d/div
+        (d/h1 {:class "left"} "Judo, in ~60 seconds")
+        (d/ul
+          (d/li "The inventor of Judo, Jigoro Kano as a kid was bullied and sought out Jujutsu to train, couldn’t find a teacher for quite some time, and discovered that it was kind of being pushed out of existence by westernization and the high competitiveness and occasional brutality of the sport.")
+          (d/li "When he finally did find a teacher, a " (d/i "sensei") ", he found one who emphasized application of techniques over exercise (e.g. more real-world)")
+          (d/li "As an adult in 1882, as jujutsu continued to lose popularity nation-wide and the discipline was being lost, Kano decided to reject techniques which were inefficient or self-destructive (like a flying scissor kick), and focus on a simpler core so he created Judo, which means “the gentle way” (or more appropriately, the " (d/u (d/i "efficient")) " way)"))))))
+
 (defcomponent root-component
   [data :- {} owner]
   (render
@@ -84,6 +129,9 @@
       (om/build slide-1 (:slides data))
       (om/build slide-2 (:slides data))
       (om/build slide-3 (:slides data))
+      (om/build slide-4 (:slides data))
+      (om/build slide-5 (:slides data))
+      (om/build slide-6 (:slides data))
       (om/build next-button nil)
       )))
 

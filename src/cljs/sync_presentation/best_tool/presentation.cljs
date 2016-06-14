@@ -1,45 +1,7 @@
-(ns bni-automation-presentation.core
+(ns sync-presentation.best-tool.presentation
   (:require [om.core :as om :include-macros true]
             [om-tools.core :refer-macros [defcomponent]]
-            [om-tools.dom :as d :include-macros true]
-            [om-bootstrap.button :as b]
-            [om-bootstrap.grid :as g]
-            [matchbox.core :as m]))
-
-(enable-console-print!)
-
-(defonce root (m/connect "https://mec-bni-presentation.firebaseio.com"))
-(m/auth-anon root)
-
-(defonce app-state (atom {:slides {:current-index nil}}))
-
-(m/listen-children
-  root [:slides]
-  (fn [[event-type data]]
-    (let [mapped (apply array-map data)]
-      ; update the slide index
-      (swap! app-state assoc-in [:slides :current-index] (get mapped "current-index")))))
-
-(defcomponent prev-button
-  [data :- {} owner]
-  (render
-    [_]
-    (when true
-      (b/button {:bs-style "info"
-                 :on-click (fn []
-                             (let [current-index (get-in @app-state [:slides :current-index])]
-                               (m/reset-in! root [:slides :current-index] (dec current-index))))}
-                "Prev"))))
-(defcomponent next-button
-  [data :- {} owner]
-  (render
-    [_]
-    (when true
-      (b/button {:bs-style "info"
-                 :on-click (fn []
-                             (let [current-index (get-in @app-state [:slides :current-index])]
-                               (m/reset-in! root [:slides :current-index] (inc current-index))))}
-                "Next"))))
+            [om-tools.dom :as d :include-macros true]))
 
 (defcomponent slide-1
   [data :- {} owner]
@@ -297,39 +259,24 @@
         (d/h4 {:class "left"} "Industrial, agricultural, accounting, inventory, payroll, and HR.")
         ))))
 
-(defcomponent root-component
-  [data :- {} owner]
-  (render
-    [_]
-    (d/div
-      (om/build slide-1  (:slides data))
-      (om/build slide-2  (:slides data))
-      (om/build slide-3  (:slides data))
-      (om/build slide-4  (:slides data))
-      (om/build slide-5  (:slides data))
-      (om/build slide-6  (:slides data))
-      (om/build slide-7  (:slides data))
-      (om/build slide-8  (:slides data))
-      (om/build slide-9  (:slides data))
-      (om/build slide-10 (:slides data))
-      (om/build slide-11 (:slides data))
-      (om/build slide-12 (:slides data))
-      (om/build slide-13 (:slides data))
-      (om/build slide-14 (:slides data))
-      (om/build slide-15 (:slides data))
-
-      (when
-        (not= -1 (.indexOf js/window.location.search "presenter"))
-        (g/grid {}
-                (g/row {}
-                       (g/col {:id "prev-button"
-                               :xs 4}
-                              (om/build prev-button nil))
-                       (g/col {:id "next-button"
-                               :xs-offset 4 :xs 4}
-                              (om/build next-button nil))))))))
-
-(om/root
- root-component
- app-state
- {:target (. js/document (getElementById "app"))})
+(defcomponent presentation-components
+ [data :- {} owner]
+ (render
+   [_]
+   (when (= "best-tool" (:presentation-name (:slides data)))
+     (d/div
+       (om/build slide-1  (:slides data))
+       (om/build slide-2  (:slides data))
+       (om/build slide-3  (:slides data))
+       (om/build slide-4  (:slides data))
+       (om/build slide-5  (:slides data))
+       (om/build slide-6  (:slides data))
+       (om/build slide-7  (:slides data))
+       (om/build slide-8  (:slides data))
+       (om/build slide-9  (:slides data))
+       (om/build slide-10 (:slides data))
+       (om/build slide-11 (:slides data))
+       (om/build slide-12 (:slides data))
+       (om/build slide-13 (:slides data))
+       (om/build slide-14 (:slides data))
+       (om/build slide-15 (:slides data))))))

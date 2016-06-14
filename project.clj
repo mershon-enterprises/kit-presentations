@@ -1,4 +1,4 @@
-(defproject bni-automation-presentation "0.1.0-SNAPSHOT"
+(defproject sync-presentation "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -29,10 +29,10 @@
 
   :clean-targets ^{:protect false} [:target-path :compile-path "resources/public/js"]
 
-  :uberjar-name "bni-automation-presentation.jar"
+  :uberjar-name "sync-presentation.jar"
 
   ;; Use `lein run` if you just want to start a HTTP server, without figwheel
-  :main bni-automation-presentation.server
+  :main sync-presentation.server
 
   ;; nREPL by default starts in the :main namespace, we want to start in `user`
   ;; because that's where our development helper functions like (run) and
@@ -45,11 +45,11 @@
 
                 :figwheel true
                 ;; Alternatively, you can configure a function to run every time figwheel reloads.
-                ;; :figwheel {:on-jsload "bni-automation-presentation.core/on-figwheel-reload"}
+                ;; :figwheel {:on-jsload "sync-presentation.core/on-figwheel-reload"}
 
-                :compiler {:main bni-automation-presentation.core
+                :compiler {:main sync-presentation.core
                            :asset-path "js/compiled/out"
-                           :output-to "resources/public/js/compiled/bni_automation_presentation.js"
+                           :output-to "resources/public/js/compiled/sync_presentation.js"
                            :output-dir "resources/public/js/compiled/out"
                            :source-map-timestamp true}}}}
 
@@ -103,7 +103,7 @@
                            {:source-paths ["src/cljs" "test/cljs"]
                             :compiler
                             {:output-to "resources/public/js/compiled/testable.js"
-                             :main bni-automation-presentation.test-runner
+                             :main sync-presentation.test-runner
                              :optimizations :none}}}}}
 
              :uberjar

@@ -1,5 +1,5 @@
 (ns user
-  (:require [bni-automation-presentation.server]
+  (:require [sync-presentation.server]
             [ring.middleware.reload :refer [wrap-reload]]
             [figwheel-sidecar.repl-api :as figwheel]))
 
@@ -9,7 +9,7 @@
 (set! *warn-on-reflection* true)
 (set! *unchecked-math* :warn-on-boxed)
 (def http-handler
-  (wrap-reload #'bni-automation-presentation.server/http-handler))
+  (wrap-reload #'sync-presentation.server/http-handler))
 
 (defn run []
   (figwheel/start-figwheel!))

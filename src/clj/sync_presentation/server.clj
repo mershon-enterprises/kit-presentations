@@ -1,4 +1,4 @@
-(ns bni-automation-presentation.server
+(ns sync-presentation.server
   (:require [clojure.java.io :as io]
             [compojure.core :refer [ANY GET PUT POST DELETE defroutes]]
             [compojure.route :refer [resources]]

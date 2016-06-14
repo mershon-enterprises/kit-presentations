@@ -319,7 +319,7 @@
       (om/build slide-15 (:slides data))
 
       (when
-        (not= -1 (.indexOf js/window.location.search "presentor"))
+        (not= -1 (.indexOf js/window.location.search "presenter"))
         (g/grid {}
                 (g/row {}
                        (g/col {:id "prev-button"

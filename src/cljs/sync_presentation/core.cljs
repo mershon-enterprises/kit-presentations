@@ -8,6 +8,7 @@
             [clojure.walk :refer [keywordize-keys]]
 
             [sync-presentation.best-tool.presentation :as best-tool]
+            [sync-presentation.training-for-tech.presentation :as training-for-tech]
             ))
 
 (enable-console-print!)
@@ -52,7 +53,13 @@
   (render
     [_]
     (d/div
-      (om/build best-tool/presentation-components data)
+      (case (:presentation-name (:slides data))
+
+        "best-tool"
+        (om/build best-tool/presentation-components data)
+
+        "training-for-tech"
+        (om/build training-for-tech/presentation-components data))
 
       (when
         (not= -1 (.indexOf js/window.location.search "presenter"))

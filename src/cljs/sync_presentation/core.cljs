@@ -7,6 +7,8 @@
             [matchbox.core :as m]
             [clojure.walk :refer [keywordize-keys]]
 
+            [sync-presentation.app-state :as app-state]
+
             [sync-presentation.best-tool.presentation :as best-tool]
             [sync-presentation.training-for-tech.presentation :as training-for-tech]
             [sync-presentation.kit-2020.presentation :as kit-2020]
@@ -17,15 +19,13 @@
 (defonce root (m/connect "https://mec-presentation.firebaseio.com"))
 (m/auth-anon root)
 
-(defonce app-state (atom {:slides {:current-index 0
-                                   :presentation-name nil}}))
 
 (m/listen-children
   root [:slides]
   (fn [[event-type data]]
     (let [mapped (keywordize-keys (apply array-map data))]
       ; update the slide index
-      (swap! app-state assoc-in [:slides (first (keys mapped))] (first (vals mapped))))))
+      (swap! app-state/state assoc-in [:slides (first (keys mapped))] (first (vals mapped))))))
 
 (defcomponent prev-button
   [data :- {} owner]
@@ -34,7 +34,7 @@
     (when true
       (b/button {:bs-style "info"
                  :on-click (fn []
-                             (let [current-index (get-in @app-state [:slides :current-index])]
+                             (let [current-index (get-in @app-state/state [:slides :current-index])]
                                (m/reset-in! root [:slides :current-index] (dec current-index))))}
                 "Prev"))))
 (defcomponent next-button
@@ -44,13 +44,17 @@
     (when true
       (b/button {:bs-style "info"
                  :on-click (fn []
-                             (let [current-index (get-in @app-state [:slides :current-index])]
+                             (let [current-index (get-in @app-state/state [:slides :current-index])]
                                (m/reset-in! root [:slides :current-index] (inc current-index))))}
                 "Next"))))
 
 
 (defcomponent root-component
   [data :- {} owner]
+  (will-mount
+    [_]
+    (when (not= -1 (.indexOf js/window.location.search "presenter"))
+      (swap! app-state/state assoc :is-presenter? true)))
   (render
     [_]
     (if-let [presentation-name (get-in data [:slides :presentation-name])]
@@ -67,7 +71,7 @@
           (om/build kit-2020/presentation-components data))
 
         (when
-          (not= -1 (.indexOf js/window.location.search "presenter"))
+          (:is-presenter? @app-state/state)
           (g/grid {}
                   (g/row {}
                          (g/col {:id "prev-button"
@@ -81,5 +85,5 @@
 
 (om/root
  root-component
- app-state
+ app-state/state
  {:target (. js/document (getElementById "app"))})

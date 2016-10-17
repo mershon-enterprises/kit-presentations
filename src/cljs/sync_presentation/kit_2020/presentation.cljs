@@ -11,7 +11,8 @@
       (d/div
         (d/h1 "KIT 2020")
         (d/h2 "Kevin Mershon")
-        (d/h2 "Kern Innovation & Technology")))))
+        (d/h2 "Kern Innovation & Technology")
+        (d/p {:class "center"} "Follow along at http://slides.followthefox.org")))))
 
 (defcomponent presentation-components
  [data :- {} owner]

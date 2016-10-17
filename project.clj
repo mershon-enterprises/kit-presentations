@@ -15,7 +15,7 @@
                  [environ "1.0.2"]
 
                  [racehub/om-bootstrap "0.5.3"]
-                 [matchbox "0.0.8-SNAPSHOT"]
+                 [matchbox "0.0.9"]
                  ]
 
   :plugins [[lein-cljsbuild "1.1.1"]

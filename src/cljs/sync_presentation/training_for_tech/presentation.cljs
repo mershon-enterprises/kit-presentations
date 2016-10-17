@@ -10,7 +10,7 @@
     (when (= 1 (:current-index data))
       (d/div
         (d/h1 "Training for Technology Skills")
-        (d/h2 "Alyssa Haerle")
+        (d/h2 "Alyssa Haas")
         (d/h2 "Kern Innovation & Technology")))))
 
 (defcomponent slide-2

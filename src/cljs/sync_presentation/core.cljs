@@ -13,7 +13,7 @@
 
 (enable-console-print!)
 
-(defonce root (m/connect "https://sync-presentation.firebaseio.com"))
+(defonce root (m/connect "https://mec-presentation.firebaseio.com"))
 (m/auth-anon root)
 
 (defonce app-state (atom {:slides {:current-index 0

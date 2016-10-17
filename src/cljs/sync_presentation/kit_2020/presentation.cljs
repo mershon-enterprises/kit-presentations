@@ -23,6 +23,7 @@
     [_]
     (when (= 2 (:current-index data))
       (d/div
+        (d/h1 "First, a quick survey:")
         (d/h3 "What Major are you?")
         (om/build vote-group ["Comp Eng" "Comp Sci" "Math" "Physics" "Other"]))
       )))

@@ -8,7 +8,6 @@
 (defonce state (atom {:slides {:current-index 0
                                :presentation-name nil
                                :data {}}
-                      :data {}
                       :is-presenter? false
                       :voted? {}}))
 

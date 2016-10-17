@@ -19,15 +19,11 @@
 
 (defcomponent slide-2
   [data :- {} owner]
-  (did-mount
-   [_]
-   (js/chart "#test"))
   (render
     [_]
     (when (= 2 (:current-index data))
       (d/div
         (d/h3 "What Major are you?")
-        (d/div {:id "test"})
         (om/build vote-group ["Comp Eng" "Comp Sci" "Math" "Physics" "Other"]))
       )))
 

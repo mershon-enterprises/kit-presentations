@@ -59,7 +59,7 @@
           (om/build kit-2020/presentation-components data))
 
         (when
-          (:is-presenter? @app-state/state)
+          (app-state/is-presenter?)
           (g/grid {}
                   (g/row {}
                          (g/col {:id "prev-button"

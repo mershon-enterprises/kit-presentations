@@ -22,6 +22,9 @@
       ; update the slide data
       (swap! state assoc-in [:slides (first (keys mapped))] (first (vals mapped))))))
 
+(defn is-presenter?
+  []
+  (:is-presenter? @state))
 
 (defn voted?
   []

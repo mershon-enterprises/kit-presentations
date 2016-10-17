@@ -9,6 +9,7 @@
 
             [sync-presentation.best-tool.presentation :as best-tool]
             [sync-presentation.training-for-tech.presentation :as training-for-tech]
+            [sync-presentation.kit-2020.presentation :as kit-2020]
             ))
 
 (enable-console-print!)
@@ -52,25 +53,31 @@
   [data :- {} owner]
   (render
     [_]
-    (d/div
-      (case (:presentation-name (:slides data))
+    (if-let [presentation-name (get-in data [:slides :presentation-name])]
+      (d/div
+        (case presentation-name
 
-        "best-tool"
-        (om/build best-tool/presentation-components data)
+          "best-tool"
+          (om/build best-tool/presentation-components data)
 
-        "training-for-tech"
-        (om/build training-for-tech/presentation-components data))
+          "training-for-tech"
+          (om/build training-for-tech/presentation-components data)
 
-      (when
-        (not= -1 (.indexOf js/window.location.search "presenter"))
-        (g/grid {}
-                (g/row {}
-                       (g/col {:id "prev-button"
-                               :xs 4}
-                              (om/build prev-button nil))
-                       (g/col {:id "next-button"
-                               :xs-offset 4 :xs 4}
-                              (om/build next-button nil))))))))
+          "kit-2020"
+          (om/build kit-2020/presentation-components data))
+
+        (when
+          (not= -1 (.indexOf js/window.location.search "presenter"))
+          (g/grid {}
+                  (g/row {}
+                         (g/col {:id "prev-button"
+                                 :xs 4}
+                                (om/build prev-button nil))
+                         (g/col {:id "next-button"
+                                 :xs-offset 4 :xs 4}
+                                (om/build next-button nil))))))
+
+      (d/h4 "No presentation is currently selected."))))
 
 (om/root
  root-component

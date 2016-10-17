@@ -42,11 +42,21 @@
                             (update-chart! (get-in @app-state/state [:slides])))}
                label))))
 
-(defcomponent vote-group
-  [labels :- {} owner]
+(defcomponent vote-chart
+  [slides :- {} owner]
   (did-mount
     [_]
     (update-chart! (om/observe owner (app-state/slides))))
+  (render-state
+    [_ {:keys [slides]}]
+    ; show chart always
+    (d/div {:class "chart"
+            :id (str (:presentation-name slides) "-"
+                     (:current-index slides))})))
+
+(defcomponent vote-group
+  [labels :- {} owner]
+
   (render
     [_]
     (let [slides            (om/observe owner (app-state/slides))
@@ -54,10 +64,7 @@
           current-index     (keyword (str (:current-index slides)))
           voted?            (om/observe owner (app-state/voted?))]
       (d/div {:class "text-center"}
-             ; show chart always
-             (d/div {:class "chart"
-                     :id (str (:presentation-name slides) "-"
-                              (:current-index slides))})
+             (om/build vote-chart {} {:state {:slides slides}})
 
              (if-not (or (app-state/is-presenter?)
                          (get voted? current-index))

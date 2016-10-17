@@ -5,7 +5,6 @@
             [om-bootstrap.button :as b]
             [om-bootstrap.grid :as g]
             [matchbox.core :as m]
-            [clojure.walk :refer [keywordize-keys]]
 
             [sync-presentation.app-state :as app-state]
 
@@ -16,17 +15,6 @@
 
 (enable-console-print!)
 
-(defonce root (m/connect "https://mec-presentation.firebaseio.com"))
-(m/auth-anon root)
-
-
-(m/listen-children
-  root [:slides]
-  (fn [[event-type data]]
-    (let [mapped (keywordize-keys (apply array-map data))]
-      ; update the slide index
-      (swap! app-state/state assoc-in [:slides (first (keys mapped))] (first (vals mapped))))))
-
 (defcomponent prev-button
   [data :- {} owner]
   (render
@@ -35,7 +23,7 @@
       (b/button {:bs-style "info"
                  :on-click (fn []
                              (let [current-index (get-in @app-state/state [:slides :current-index])]
-                               (m/reset-in! root [:slides :current-index] (dec current-index))))}
+                               (m/reset-in! app-state/root [:slides :current-index] (dec current-index))))}
                 "Prev"))))
 (defcomponent next-button
   [data :- {} owner]
@@ -45,7 +33,7 @@
       (b/button {:bs-style "info"
                  :on-click (fn []
                              (let [current-index (get-in @app-state/state [:slides :current-index])]
-                               (m/reset-in! root [:slides :current-index] (inc current-index))))}
+                               (m/reset-in! app-state/root [:slides :current-index] (inc current-index))))}
                 "Next"))))
 
 
